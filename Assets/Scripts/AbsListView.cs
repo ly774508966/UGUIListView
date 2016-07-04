@@ -41,7 +41,7 @@ public interface IListView
 	void SetOnClickListener (OnItemClick click);
 
 
-	void ResetContentHeight ();
+	void ResetContentHeight (int cellHeight);
 }
 
 public abstract class AbsListView:IListView
@@ -54,7 +54,7 @@ public abstract class AbsListView:IListView
 	private ScrollRect scrollRect;
 	private GridLayoutGroup gridLayoutGroup;
 	public OnItemClick click;
-	public BaseAdapter adapter;
+	public AbsAdapter adapter;
 	public AbsListView (MonoBehaviour behaviour)
 	{
 		this.behaviour = behaviour;
@@ -110,7 +110,7 @@ public abstract class AbsListView:IListView
 	public  void SetAdapter (AbsAdapter adapter)
 	{
 		this.adapter = adapter;
-		ResetContentHeight (100);
+	    ResetContentHeight (100);
 	}
 
 	public void ResetContentHeight (int cellHeight)
