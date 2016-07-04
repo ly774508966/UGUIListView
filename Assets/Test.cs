@@ -17,13 +17,16 @@ public class Test:MonoBehaviour
 
 		lv.SetAdapter (new BaseAdapter (arr));
 
-
-
 		lv.SetOnClickListener (delegate(GameObject item) {
 
 			Destroy(item);
 
 			Debug.Log(":"+item.name);
+		});
+		lv.SetOnLongClickListener (delegate(GameObject item) {
+		
+
+			Debug.Log ("长按"+item.name);
 		});
 
 	}

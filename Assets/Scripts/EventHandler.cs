@@ -12,6 +12,7 @@ using UnityEngine.UI;
 // 继承：按下，抬起和离开的三个接口
 public class EventHandler :MonoBehaviour,IPointerDownHandler,IPointerUpHandler,IPointerExitHandler
 {
+	public OnItemLongClick longclick;
 	// 延迟时间
 	private float delay = 0.2f;
 
@@ -40,6 +41,13 @@ public class EventHandler :MonoBehaviour,IPointerDownHandler,IPointerUpHandler,I
 				// 记录按钮最后一次被按下的时间
 				lastIsDownTime = Time.time;
 				isDown = false;
+
+				if (null != longclick) {
+				
+					longclick (gameObject);
+
+				}
+
 			} else {
 			
 				isLongPress = false;

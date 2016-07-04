@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public delegate void OnItemClick (GameObject item);
+public delegate void OnItemLongClick (GameObject item);
 public enum ScrollDirection
 {
 
@@ -66,6 +67,7 @@ public abstract class AbsListView:IListView
 	private ScrollRect scrollRect;
 	public GridLayoutGroup gridLayoutGroup;
 	public OnItemClick click;
+	public OnItemLongClick longclick;
 	public AbsAdapter adapter;
 	public AbsListView (MonoBehaviour behaviour)
 	{
@@ -139,7 +141,7 @@ public abstract class AbsListView:IListView
 	public void ResetContentHeight (float cellHeight)
 	{
 		int itemCount = ReCalculateItemCount ();
-		Debug.Log (itemCount);
+
 		((RectTransform)content.transform).sizeDelta = new Vector2 (Screen.width,	gridLayoutGroup.cellSize.y * itemCount + (itemCount - 2) * gridLayoutGroup.spacing.y);
 		gridLayoutGroup.cellSize = new Vector2 (Screen.width, cellHeight);
 
@@ -155,7 +157,10 @@ public abstract class AbsListView:IListView
 	{
 		this.click = click;
 	}
-
+	public void SetOnLongClickListener (OnItemLongClick longclick)
+	{
+		this.longclick = longclick;
+	}
 }
 
 

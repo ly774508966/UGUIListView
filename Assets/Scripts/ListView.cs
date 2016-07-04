@@ -24,11 +24,13 @@ public class ListView:AbsListView
 
 			EventHandler eventHandler=convertView.AddComponent<EventHandler> ();
 
+			eventHandler.longclick = delegate(GameObject item) {
+
+				longclick(convertView);
+			};
 
 			btn.onClick.AddListener (() => {
 				if(eventHandler.isLongPress){
-
-					Debug.Log ("长按");
 					return;
 				}
 				click(convertView);
