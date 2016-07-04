@@ -17,7 +17,11 @@ public class Test:MonoBehaviour
 
 		lv.SetAdapter (new BaseAdapter (arr));
 
+
+
 		lv.SetOnClickListener (delegate(GameObject item) {
+
+			Destroy(item);
 
 			Debug.Log(":"+item.name);
 		});

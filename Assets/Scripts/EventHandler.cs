@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using UnityEngine.UI;
 /// <summary>
 /// 脚本位置：UGUI按钮组件身上
 /// 脚本功能：实现按钮长按状态的判断
@@ -21,7 +22,12 @@ public class EventHandler :MonoBehaviour,IPointerDownHandler,IPointerUpHandler,I
 	private float lastIsDownTime;
 
 	public bool isLongPress;
-
+	void Start(){
+		//this script can only use to item obj
+		if (null==transform.parent||transform.parent.GetComponent<GridLayoutGroup> () == null) {
+			Destroy (this);
+		}
+	}
 	void Update ()
 	{
 		// 如果按钮是被按下状态

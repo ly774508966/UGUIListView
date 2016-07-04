@@ -41,7 +41,19 @@ public interface IListView
 	void SetOnClickListener (OnItemClick click);
 
 
-	void ResetContentHeight (int cellHeight);
+	void ResetContentHeight (float cellHeight);
+	/// <summary>
+	/// set cellsize
+	/// </summary>
+	/// <param name="x">The x coordinate.</param>
+	/// <param name="y">The y coordinate.</param>
+	void SetItemInitSize (int x,int y);
+
+	int  ReCalculateItemCount ();
+
+	void ScrollToZeroPoint ();
+
+
 }
 
 public abstract class AbsListView:IListView
@@ -52,7 +64,7 @@ public abstract class AbsListView:IListView
 	public GameObject viewPort;
 	public GameObject content;
 	private ScrollRect scrollRect;
-	private GridLayoutGroup gridLayoutGroup;
+	public GridLayoutGroup gridLayoutGroup;
 	public OnItemClick click;
 	public AbsAdapter adapter;
 	public AbsListView (MonoBehaviour behaviour)
@@ -110,14 +122,33 @@ public abstract class AbsListView:IListView
 	public  void SetAdapter (AbsAdapter adapter)
 	{
 		this.adapter = adapter;
-	    ResetContentHeight (100);
+	   
 	}
 
-	public void ResetContentHeight (int cellHeight)
+	public void SetItemInitSize (int x, int y)
 	{
-		((RectTransform)content.transform).sizeDelta = new Vector2 (Screen.width,	gridLayoutGroup.cellSize.y * adapter.getCount () + (adapter.getCount () - 2) * gridLayoutGroup.spacing.y);
-		gridLayoutGroup.cellSize = new Vector2 (Screen.width, 100);
-		((RectTransform)content.transform).anchoredPosition3D = new Vector3 (0,	-gridLayoutGroup.cellSize.y * adapter.getCount () / 2, 0);
+		gridLayoutGroup.cellSize = new Vector2 (x, y);
+	}
+
+	public int ReCalculateItemCount ()
+	{
+
+		return content.GetComponentsInChildren<EventHandler> ().Length;
+	}
+
+	public void ResetContentHeight (float cellHeight)
+	{
+		int itemCount = ReCalculateItemCount ();
+		Debug.Log (itemCount);
+		((RectTransform)content.transform).sizeDelta = new Vector2 (Screen.width,	gridLayoutGroup.cellSize.y * itemCount + (itemCount - 2) * gridLayoutGroup.spacing.y);
+		gridLayoutGroup.cellSize = new Vector2 (Screen.width, cellHeight);
+
+	}
+
+	public void ScrollToZeroPoint ()
+	{
+		int itemCount = ReCalculateItemCount ();
+		((RectTransform)content.transform).anchoredPosition3D = new Vector3 (0,	-gridLayoutGroup.cellSize.y *itemCount / 2, 0);
 	}
 
 	 public void SetOnClickListener (OnItemClick click)

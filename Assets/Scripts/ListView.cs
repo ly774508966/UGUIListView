@@ -32,9 +32,12 @@ public class ListView:AbsListView
 					return;
 				}
 				click(convertView);
+				ResetContentHeight(gridLayoutGroup.cellSize.y);
 
 			});
 		}
+		ResetContentHeight (gridLayoutGroup.cellSize.y);
+		ScrollToZeroPoint ();
 	}
 
 }
