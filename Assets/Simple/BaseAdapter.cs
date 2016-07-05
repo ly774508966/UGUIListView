@@ -46,6 +46,32 @@ public class BaseAdapter : AbsAdapter
 					t.color = Color.black;
 		t.text = data[position].ToString();
 					text.transform.parent = item.transform;
+
+		GameObject tagbtn =	new GameObject (position + "").AddComponent<Image> ().gameObject;
+
+		Image timage = tagbtn.GetComponent<Image> ();
+
+		Button tbtn = tagbtn.AddComponent<Button> ();
+		timage.color = Color.blue;
+
+		tbtn.onClick.AddListener (delegate() {
+		
+			timage.enabled = false;
+		});
+
+		tagbtn.transform.parent = item.transform;
+
+		RectTransform rt=(RectTransform)tagbtn.transform;
+
+		rt.anchorMin = new Vector2 (1, rt.anchorMin.y);
+
+		rt.anchorMax = new Vector2 (1, rt.anchorMax.y);
+		rt.anchoredPosition3D = new Vector3 (-rt.sizeDelta.x / 2, 0, 0);
+		rt.name="tagbtn";
+		timage.enabled = false;
+
+
+
 		item.transform.parent =	convertView.transform;
 		text.transform.localPosition = new Vector3 (item.transform.localPosition.x+((RectTransform)text.transform).sizeDelta.x/2,0, 0);
 
