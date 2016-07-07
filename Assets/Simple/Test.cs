@@ -12,7 +12,7 @@ public class Test:MonoBehaviour
 		ArrayList arr =	new ArrayList ();
 		for (int i = 0; i < 100; i++) {
 		
-			arr.Add (i+"个人头");
+			arr.Add (i+"个人头tr");
 		}
 
 		lv.SetAdapter (new BaseAdapter (arr));
